@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const webpack = require('webpack');
+const vueLoaderPlugin = require("vue-loader/lib/plugin");
 
 module.exports = {
     entry: [
@@ -61,11 +62,16 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'development') {
+
+    var LiveReloadPlugin = require('webpack-livereload-plugin');
+
     module.exports.mode = 'development';
     module.exports.plugins = [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        new vueLoaderPlugin(),
+        new LiveReloadPlugin()
     ];
     module.exports.entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'); //?noInfo=true&quiet=true)
     module.exports.module.rules[0].use.push({loader: 'webpack-module-hot-accept'});
