@@ -92,7 +92,8 @@ if (process.env.NODE_ENV === 'production') {
                         mangle: true
                     },
                     sourceMap: true
-                })
+                }),
+              new vueLoaderPlugin(),
             ]
     };
     module.exports.mode = 'production';
